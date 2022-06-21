@@ -1,7 +1,8 @@
 from sklearn.base import BaseEstimator, RegressorMixin
 import numpy as np
 
-    class LinearRegressor(BaseEstimator, RegressorMixin):
+
+class LinearRegressor(BaseEstimator, RegressorMixin):
     """
     Custom linear regression model
     """
