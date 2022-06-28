@@ -191,7 +191,7 @@ class ConvertNumericAndExtractFeatures:
 
     def run_all(self):
         self.sex()
-        # self.blood_type()
+        self.blood_type()
         # self.address()
         # self.current_location()
         self.symptoms()
@@ -370,8 +370,8 @@ class Imputation:
             if feature == 'sex':
                 self.random_sample_imputation_on_sex_feature()
 
-            # if feature == 'blood_type':
-            #    self.random_sample_imputation_on_blood_type_feature()
+            if feature == 'blood_type':
+                self.random_sample_imputation_on_blood_type_feature()
 
     def end_tail_norm_imputation(self):
         for feature in self.end_tail_norm_list:
@@ -445,8 +445,8 @@ def prepare_data(data, training_data):
     # most_frequent_imputation_features_list = ['happiness_score', 'sugar_levels', 'PCR_03', 'country']
     # end_tail_norm_imputation_features_list = ['longitude']
 
-    random_sample_imputation_features_list = ['sport_activity', 'PCR_05']
-    mean_imputation_features_list = ['PCR_01', 'PCR_02', 'PCR_06', 'PCR_07', 'PCR_09']
+    random_sample_imputation_features_list = ['sport_activity', 'PCR_05', 'blood_type']
+    mean_imputation_features_list = ['PCR_01', 'PCR_02', 'PCR_06', 'PCR_09']
     median_imputation_features_list = []
     most_frequent_imputation_features_list = ['sugar_levels', 'PCR_03']
     end_tail_norm_imputation_features_list = []
@@ -458,7 +458,8 @@ def prepare_data(data, training_data):
     data = data_imputation_class.run_all()
 
     """"Apply normalization on all features"""
-    minmax_normalized_features = ['PCR_01', 'PCR_02', 'PCR_04', 'PCR_06', 'PCR_08', 'PCR_10', 'sport_activity', 'PCR_05']
+    minmax_normalized_features = ['PCR_01', 'PCR_02', 'PCR_04', 'PCR_05', 'PCR_06',
+                                  'PCR_08', 'PCR_10', 'sport_activity']
 
     standardization_normalized_features = ['sugar_levels', 'PCR_03', 'PCR_07', 'PCR_09']
 
@@ -466,9 +467,10 @@ def prepare_data(data, training_data):
     data = data_normalization.run_all()
 
     """drop features we don't need"""
-    features_list = ['PCR_01', 'PCR_04', 'PCR_02', 'PCR_05', 'PCR_06', 'PCR_08', 'PCR_10', 'PCR_09', 'sugar_levels',
+    features_list = ['PCR_01', 'PCR_02', 'PCR_04', 'PCR_05', 'PCR_06', 'PCR_08', 'PCR_09', 'PCR_10', 'sugar_levels',
                      'sport_activity', 'symptom_shortness_of_breath', 'symptom_sore_throat', 'symptom_cough',
-                     'covid_score', 'symptom_fever', 'spread_score', 'blood_type']
+                     'symptom_fever', 'covid_score', 'spread_score', 'blood_A+', 'blood_A-', 'blood_AB-', 'blood_AB+',
+                     'blood_O+', 'blood_O-', 'blood_B+', 'blood_B-']
 
     return data[features_list]
 
@@ -485,8 +487,10 @@ if __name__ == '__main__':
     test_clean = prepare_data(test, train)
 
     train_clean.to_csv(
-        r'C:\Users\javits\Technion\Introduction To Machine Learning - 236756\HW\Major_HW3\Major_HW3_ML\train_clean.csv',
+        r'C:\Users\javits\Technion\Introduction To Machine Learning - '
+        r'236756\HW\Major_HW3\Major_HW3_ML\train_with_bloodtype.csv',
         index=False)
     test_clean.to_csv(
-        r'C:\Users\javits\Technion\Introduction To Machine Learning - 236756\HW\Major_HW3\Major_HW3_ML\test_clean.csv',
+        r'C:\Users\javits\Technion\Introduction To Machine Learning - '
+        r'236756\HW\Major_HW3\Major_HW3_ML\test_with_bloodtype.csv',
         index=False)
