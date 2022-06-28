@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
 def plot3d(df, colX:str, colY:str, colZ:str, title:str, predictions=None):
   fig = plt.figure(figsize=(20, 7))
   axes = [fig.add_subplot(1, 3, i+1, projection='3d') for i in range(3)]
